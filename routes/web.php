@@ -44,7 +44,7 @@ Route::put('/{name}', function(Request $request, $name)
         $file->save();
     }
 
-    return "$baseUrl/$name";
+    return "$baseUrl/$path";
 })->where('name', '.*');
 
 Route::get('/{name}', function(Request $request, $path)
