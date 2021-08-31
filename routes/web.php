@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function()
 {
-    $files = File::all();
-    return view('index', compact('files'));
+    return view('react');
 });
 
 
