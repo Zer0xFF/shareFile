@@ -3,8 +3,28 @@ import ReactDOM from 'react-dom';
 
 function FileListing()
 {
-    const [files, setFiles] = useState(['ss/PLACEHOLDER']);
+    const [files, setFiles] = useState({isLoaded: false, items: []});
 
+    function requestData(url, state, stateSetter)
+    {
+        if(!state.isLoaded)
+        {
+            stateSetter({isLoaded: true, items: state.items});
+            fetch(url)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        stateSetter({isLoaded: true, items: result});
+                    },
+                    (error) => {
+                        console.log(error);
+                        stateSetter({isLoaded: false, items: state.items});
+                    }
+                )
+        }
+    }
+
+    requestData('/api/files', files, setFiles);
 
     return (
         <div className="container">
@@ -12,8 +32,8 @@ function FileListing()
                 <div className="col-md-8">
                     <div className="card">
                         <ul>
-                        {files.map((file) =>
-                            <li><a href={ file }> { file } </a></li>
+                        {files.items.map((file) =>
+                            <li><a href={ file.path }> { file.name } </a></li>
                         )}
                         </ul>
                     </div>
@@ -25,6 +45,7 @@ function FileListing()
 
 export default FileListing;
 
-if (document.getElementById('root')) {
+if(document.getElementById('root'))
+{
     ReactDOM.render(<FileListing />, document.getElementById('root'));
 }

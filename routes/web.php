@@ -20,6 +20,12 @@ Route::get('/', function()
     return view('react');
 });
 
+Route::get('/api/files', function()
+{
+    return File::all();
+});
+
+
 
 Route::put('/{name}', function(Request $request, $name)
 {
