@@ -99,7 +99,7 @@ function FileListing()
 
     function generateParentHeader()
     {
-        return [<a href={'#' + 0} onClick={() => navigate({type: 'root'})}> / </a>, ...navHistory.map((path, i) =>
+        return [<> / <a href={'#' + 0} onClick={() => navigate({type: 'root'})}> {window.location.hostname} </a> / </>, ...navHistory.map((path, i) =>
         <> <a href={'#' + (i + 1)} onClick={() => navigate({type: 'set', index: i + 1})}> {path} </a> / </>
         )];
     }
