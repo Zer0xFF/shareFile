@@ -13,7 +13,7 @@
     <link href="{{ asset(mix('/css/app.css')) }}" rel="stylesheet">
     <script defer src="{{ asset(mix('/js/app.js')) }}" ></script>
 
-    <title>React App</title>
+    <title>Share | {{ env('APP_NAME') }}</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
