@@ -2,9 +2,31 @@
 
 shareFile is a Laravel/React Application for easy file sharing across the web
 
-## Setup Docs
+## Setup
+* clone repo `git clone https://github.com/Zer0xFF/shareFile.git`
+* install dependencies
+  ```
+  composer install
+  npm install
+  ```
+* setup .env
+  ```
+  cp .env.example .env
+  php artisan key:generate
+  php artisan env:set DB_CONNECTION sqlite
+  php artisan env:del DB_HOST
+  php artisan env:del DB_PORT
+  php artisan env:del DB_DATABASE
+  php artisan env:del DB_USERNAME
+  php artisan env:del DB_PASSWORD
+  php artisan migrate
+  ```
+* run mixer
+  * `npm run dev`
+* start laravel server
+  * `php artisan serve`
 
-## Usage Docs
+## Usage
 * upload a file to a specifc path
   * `curl --upload-file /path/to/file https://myserver/where/do/I/want/to/upload/`
   * this will upload `file` to `https://myserver/where/do/I/want/to/upload/{HASH}_file`*
