@@ -27,16 +27,18 @@ Route::get('/api/files', function()
 
 
 
-Route::put('/{name}', function(Request $request, $name)
+Route::put('/{path}', function(Request $request, $path)
 {
     $baseUrl = env('APP_URL');
     $content = $request->getContent();
     $fileHash = sha1($content);
 
     // add hash to name to avoid collisions
-    $names = explode('/', $name);
-    $name = $fileHash . '_' . $names[count($names) - 1];
-    $names[count($names) - 1] = $name;
+    $names = explode('/', $path);
+    $name = $names[count($names) - 1];
+
+    $hashedName = $fileHash . '_' . $name;
+    $names[count($names) - 1] = $hashedName;
     $path = implode('/', $names);
 
     if(!Storage::disk('local')->exists($path))
@@ -52,9 +54,9 @@ Route::put('/{name}', function(Request $request, $name)
     }
 
     return "$baseUrl/$path";
-})->where('name', '.*');
+})->where('path', '.*');
 
-Route::get('/{name}', function(Request $request, $path)
+Route::get('/{path}', function(Request $request, $path)
 {
     if(!Storage::disk('local')->exists($path))
         abort(404);
@@ -66,8 +68,8 @@ Route::get('/{name}', function(Request $request, $path)
     array_shift($names);
     $name = implode('_', $names);
 
-    $file = File::where(['name' => $hashedName, 'path' => $path])->get()->first();
+    $file = File::where(compact('name', 'path'))->get()->first();
     $file->download_count += 1;
     $file->save();
     return Storage::disk('local')->download($path, $name);
-})->where('name', '.*');
+})->where('path', '.*');
