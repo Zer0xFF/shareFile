@@ -9,6 +9,7 @@
       name="description"
       content="File Share Listing"
     />
+    <meta name="site_name" content="{{ env('APP_NAME') }}">
 
     <link href="{{ asset(mix('/css/app.css')) }}" rel="stylesheet">
     <script defer src="{{ asset(mix('/js/app.js')) }}" ></script>
