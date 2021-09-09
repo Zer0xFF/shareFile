@@ -48,7 +48,6 @@ shareFile is a Laravel/React Application for easy file sharing across the web
 
 ## TODO
 * json response
-* file view: flat file view: list all files
 * password protected files
 * password/authenticated uploads
 
